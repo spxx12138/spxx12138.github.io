@@ -1,21 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://spxx12138.github.io</id>
-    <title>寻欢</title>
-    <updated>2020-01-13T14:37:09.942Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://spxx12138.github.io"/>
-    <link rel="self" href="https://spxx12138.github.io/atom.xml"/>
-    <logo>https://spxx12138.github.io/images/avatar.png</logo>
-    <icon>https://spxx12138.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 寻欢</rights>
-    <entry>
-        <title type="html"><![CDATA[ArrayList与LinkedList 的增删、访问 速度对比实验.md]]></title>
-        <id>https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md</id>
-        <link href="https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md">
-        </link>
-        <updated>2020-01-13T14:33:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="arraylist与linkedlist-的增删-访问-速度对比实验">ArrayList与LinkedList 的增删、访问 速度对比实验</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ArrayList与LinkedList 的增删、访问 速度对比实验.md | 寻欢</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://spxx12138.github.io/favicon.ico?v=1578926223148">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://spxx12138.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://spxx12138.github.io">寻欢</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>ArrayList与LinkedList 的增删、访问 速度对比实验.md</h1>
+            <p class="article-meta">
+              2020-01-13
+              
+            </p>
+            
+            <div class="post-content">
+              <h1 id="arraylist与linkedlist-的增删-访问-速度对比实验">ArrayList与LinkedList 的增删、访问 速度对比实验</h1>
 <p>ArrayList基于数组实现，随机访问快，增删慢。<br>
 LinkedList是链表结构，增删快，随机访问慢。<br>
 <strong><font color = 'red'>这是网络与书籍里随处可见的两句话，但并不是说所有情况下Linked的增删都比ArrayList快</font></strong></p>
@@ -157,6 +230,78 @@ LinkedList遍历删除用时：16（零点零二秒）<br>
 <font color='red'>LinkedList的遍历千万不要用for循环get，LinkedList的get方法内部是通过循环找到第i个元素的，这样相当于使用了嵌套循环</font></p>
 <p><strong>需要频繁删除或者头部插入的时候，使用LinkedList<br>
 在尾部插入，不怎么进行删除操作时，使用ArrayList</strong></p>
-]]></content>
-    </entry>
-</feed>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://spxx12138.github.io/images/avatar.png?v=1578926223148" class="no-responsive avatar">
+    <div class="text-muted"></div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md">ArrayList与LinkedList 的增删、访问 速度对比实验.md</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://spxx12138.github.io" target="_blank">Gridea</a> | <a class="rss" href="https://spxx12138.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
