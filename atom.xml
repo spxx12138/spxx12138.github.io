@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://spxx12138.github.io</id>
     <title>寻欢</title>
-    <updated>2020-01-13T14:46:41.335Z</updated>
+    <updated>2020-06-30T09:22:30.340Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://spxx12138.github.io"/>
     <link rel="self" href="https://spxx12138.github.io/atom.xml"/>
@@ -10,9 +10,69 @@
     <icon>https://spxx12138.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 寻欢</rights>
     <entry>
+        <title type="html"><![CDATA[终端配置代理]]></title>
+        <id>https://spxx12138.github.io/post/zhong-duan-pei-zhi-dai-li/</id>
+        <link href="https://spxx12138.github.io/post/zhong-duan-pei-zhi-dai-li/">
+        </link>
+        <updated>2020-06-30T08:13:31.000Z</updated>
+        <content type="html"><![CDATA[<p><em>今天从github clone项目的时候发现，明明开了代理，youtube 4k都不卡，clone的速度却只有几k。经过一番查证得知，命令行是不走代理的。</em></p>
+<p>配置代理时有两种选择，一个是单独给git配置代理，一个是终端所有命令都走代理。</p>
+<h3 id="配置git代理">配置Git代理</h3>
+<p>git最常用的两个协议就是https和git，两种协议代理的配置方式不同。</p>
+<ol>
+<li>
+<p>https</p>
+<ul>
+<li>修改配置文件 ~/.gitconfig，添加如下内容：<pre><code class="language-xml">[http &quot;https://github.com/&quot;]
+    proxy = http://&lt;host&gt;:&lt;port&gt;/
+</code></pre>
+</li>
+<li>在git工程目录下执行以下命令<pre><code class="language-xml">git config --global https.github.com.proxy http://host:port
+</code></pre>
+</li>
+</ul>
+<p><em>二者修改的都是全局配置，且只针对github才使用代理，避免国内git网站甚至是局域网都走代理。如果代理使用的是socket协议，把https地址替换成socket地址即可，如：socks5://127.0.0.1:10886。</em></p>
+</li>
+<li>
+<p>git</p>
+<ul>
+<li>修改配置文件 ~/.gitconfig，添加如下内容：<pre><code class="language-xml">[core]
+    gitproxy = /path/to/gitproxy for github.com
+</code></pre>
+</li>
+<li>在git工程目录下执行以下命令<pre><code class="language-xml">git config --global core.gitproxy &quot;/path/to/gitproxy for github.com&quot;
+</code></pre>
+</li>
+</ul>
+<p>二者都是将代理配置指向一个配置文件，配置文件内容如下：</p>
+<pre><code class="language-shell">    #!/bin/sh
+    exec /usr/bin/nc -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; $1 $2
+    # connect -H ip:port &quot;$@&quot; window或其他没有nc命令的系统，可以使用该命令代替
+</code></pre>
+</li>
+</ol>
+<h3 id="配置终端代理">配置终端代理</h3>
+<ol>
+<li>http协议<br>
+配置环境变量<code>all_proxy=socks5://127.0.0.1:10886</code>，配置完成即可成功代理。但是不同的环境变量配置方式，实现的代理效果也不同。我的配置方式是在.zshrc文件添加如下命令：<pre><code class="language-shell">    alias proxy='export all_proxy=socks5://127.0.0.1:10886'
+    alias unproxy='unset all_proxy'
+</code></pre>
+这样做的好处是，可以通过<code>proxy</code>和<code>unproxy</code>命令一键 开启/关闭 代理</li>
+<li>ssh协议<br>
+在<code>.ssh</code>目录下新建<code>config</code>文件，内容为<pre><code class="language-shell"> Host github.com
+     User git
+     ProxyCommand /usr/bin/nc -X 5 -x 127.0.0.1:10886 %h %p
+     # 对于window或其他没有nc命令的系统，可以使用下面的命令代替
+     # ProxyCommand connect -S 127.0.0.1:10886 %h %p`
+</code></pre>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[ArrayList与LinkedList 的增删、访问 速度对比实验.md]]></title>
-        <id>https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md</id>
-        <link href="https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md">
+        <id>https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md/</id>
+        <link href="https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md/">
         </link>
         <updated>2020-01-13T14:33:49.000Z</updated>
         <content type="html"><![CDATA[<h1 id="arraylist与linkedlist-的增删-访问-速度对比实验">ArrayList与LinkedList 的增删、访问 速度对比实验</h1>

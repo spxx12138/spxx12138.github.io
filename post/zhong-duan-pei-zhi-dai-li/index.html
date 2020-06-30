@@ -1,0 +1,234 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>终端配置代理 | 寻欢</title>
+<link rel="shortcut icon" href="https://spxx12138.github.io/favicon.ico?v=1593508904734">
+<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://spxx12138.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="终端配置代理 | 寻欢 - Atom Feed" href="https://spxx12138.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="今天从github clone项目的时候发现，明明开了代理，youtube 4k都不卡，clone的速度却只有几k。经过一番查证得知，命令行是不走代理的。
+配置代理时有两种选择，一个是单独给git配置代理，一个是终端所有命令都走代理。
+配置..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://spxx12138.github.io">
+  <img class="avatar" src="https://spxx12138.github.io/images/avatar.png?v=1593508904734" alt="">
+  </a>
+  <h1 class="site-title">
+    寻欢
+  </h1>
+  <p class="site-description">
+    
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/spxx12138" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              终端配置代理
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-30
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><em>今天从github clone项目的时候发现，明明开了代理，youtube 4k都不卡，clone的速度却只有几k。经过一番查证得知，命令行是不走代理的。</em></p>
+<p>配置代理时有两种选择，一个是单独给git配置代理，一个是终端所有命令都走代理。</p>
+<h3 id="配置git代理">配置Git代理</h3>
+<p>git最常用的两个协议就是https和git，两种协议代理的配置方式不同。</p>
+<ol>
+<li>
+<p>https</p>
+<ul>
+<li>修改配置文件 ~/.gitconfig，添加如下内容：<pre><code class="language-xml">[http &quot;https://github.com/&quot;]
+    proxy = http://&lt;host&gt;:&lt;port&gt;/
+</code></pre>
+</li>
+<li>在git工程目录下执行以下命令<pre><code class="language-xml">git config --global https.github.com.proxy http://host:port
+</code></pre>
+</li>
+</ul>
+<p><em>二者修改的都是全局配置，且只针对github才使用代理，避免国内git网站甚至是局域网都走代理。如果代理使用的是socket协议，把https地址替换成socket地址即可，如：socks5://127.0.0.1:10886。</em></p>
+</li>
+<li>
+<p>git</p>
+<ul>
+<li>修改配置文件 ~/.gitconfig，添加如下内容：<pre><code class="language-xml">[core]
+    gitproxy = /path/to/gitproxy for github.com
+</code></pre>
+</li>
+<li>在git工程目录下执行以下命令<pre><code class="language-xml">git config --global core.gitproxy &quot;/path/to/gitproxy for github.com&quot;
+</code></pre>
+</li>
+</ul>
+<p>二者都是将代理配置指向一个配置文件，配置文件内容如下：</p>
+<pre><code class="language-shell">    #!/bin/sh
+    exec /usr/bin/nc -X 5 -x &lt;socks_host&gt;:&lt;socks_port&gt; $1 $2
+    # connect -H ip:port &quot;$@&quot; window或其他没有nc命令的系统，可以使用该命令代替
+</code></pre>
+</li>
+</ol>
+<h3 id="配置终端代理">配置终端代理</h3>
+<ol>
+<li>http协议<br>
+配置环境变量<code>all_proxy=socks5://127.0.0.1:10886</code>，配置完成即可成功代理。但是不同的环境变量配置方式，实现的代理效果也不同。我的配置方式是在.zshrc文件添加如下命令：<pre><code class="language-shell">    alias proxy='export all_proxy=socks5://127.0.0.1:10886'
+    alias unproxy='unset all_proxy'
+</code></pre>
+这样做的好处是，可以通过<code>proxy</code>和<code>unproxy</code>命令一键 开启/关闭 代理</li>
+<li>ssh协议<br>
+在<code>.ssh</code>目录下新建<code>config</code>文件，内容为<pre><code class="language-shell"> Host github.com
+     User git
+     ProxyCommand /usr/bin/nc -X 5 -x 127.0.0.1:10886 %h %p
+     # 对于window或其他没有nc命令的系统，可以使用下面的命令代替
+     # ProxyCommand connect -S 127.0.0.1:10886 %h %p`
+</code></pre>
+</li>
+</ol>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AEgit%E4%BB%A3%E7%90%86">配置Git代理</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E7%BB%88%E7%AB%AF%E4%BB%A3%E7%90%86">配置终端代理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://spxx12138.github.io/post/arraylist-yu-linkedlist-de-zeng-shan-fang-wen-su-du-dui-bi-shi-yan-md/">
+              <h3 class="post-title">
+                ArrayList与LinkedList 的增删、访问 速度对比实验.md
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://spxx12138.github.io" target="_blank">寻欢</a>
+  <a class="rss" href="https://spxx12138.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
